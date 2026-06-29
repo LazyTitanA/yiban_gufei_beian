@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- 外圈渐变 -->
+    <linearGradient id="outerRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a7a3a;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d5e2a;stop-opacity:1"/>
+    </linearGradient>
+    <!-- 内圈渐变 -->
+    <linearGradient id="innerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e9;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c8e6c9;stop-opacity:1"/>
+    </linearGradient>
+    <!-- 天空渐变 -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1565c0;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:1"/>
+    </linearGradient>
+    <!-- 水面渐变 -->
+    <linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196f3;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d47a1;stop-opacity:1"/>
+    </linearGradient>
+    <!-- 雪山渐变 -->
+    <linearGradient id="mountainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="mountainGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e9;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#81c784;stop-opacity:1"/>
+    </linearGradient>
+    <!-- 叶子渐变 -->
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2e7d32;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 外圈 - 绿色圆环 -->
+  <circle cx="100" cy="100" r="98" fill="none" stroke="url(#outerRing)" stroke-width="6"/>
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#1a7a3a" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- 内圈背景 - 浅绿色 -->
+  <circle cx="100" cy="100" r="90" fill="url(#innerBg)"/>
+
+  <!-- 天空背景 -->
+  <ellipse cx="100" cy="80" rx="70" ry="50" fill="url(#skyGrad)" opacity="0.15"/>
+
+  <!-- ============ 雪山/远山 ============ -->
+  <!-- 远山轮廓 -->
+  <path d="M 30 105 L 55 65 L 70 78 L 90 50 L 110 72 L 130 55 L 150 78 L 170 60 L 175 105 Z"
+        fill="url(#mountainGrad)" opacity="0.9"/>
+  <!-- 远山阴影 -->
+  <path d="M 90 50 L 110 72 L 130 55 L 150 78 L 170 60 L 175 105 L 130 105 Z"
+        fill="#d0d9e8" opacity="0.5"/>
+
+  <!-- ============ 近山/青山 ============ -->
+  <path d="M 35 108 L 60 82 L 80 95 L 100 75 L 120 90 L 140 78 L 165 100 L 170 108 Z"
+        fill="url(#mountainGrad2)" opacity="0.8"/>
+
+  <!-- ============ 三江源河流 ============ -->
+  <!-- 河流主干 -->
+  <path d="M 100 75 Q 95 88 85 95 Q 75 102 65 100 Q 55 98 50 105"
+        fill="none" stroke="url(#waterGrad)" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <path d="M 100 75 Q 105 88 115 95 Q 125 102 140 100 Q 155 98 160 105"
+        fill="none" stroke="url(#waterGrad)" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <path d="M 100 75 Q 100 90 100 105"
+        fill="none" stroke="url(#waterGrad)" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- ============ 绿叶 ============ -->
+  <!-- 左侧叶子 -->
+  <g transform="translate(50, 68) rotate(-30)">
+    <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#leafGrad)" opacity="0.8"/>
+    <line x1="-10" y1="0" x2="10" y2="0" stroke="#1b5e20" stroke-width="0.8" opacity="0.5"/>
+  </g>
+  <!-- 右侧叶子 -->
+  <g transform="translate(150, 65) rotate(30)">
+    <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#leafGrad)" opacity="0.8"/>
+    <line x1="-10" y1="0" x2="10" y2="0" stroke="#1b5e20" stroke-width="0.8" opacity="0.5"/>
+  </g>
+  <!-- 上方中心叶子 -->
+  <g transform="translate(100, 42) rotate(0)">
+    <ellipse cx="0" cy="0" rx="10" ry="5" fill="url(#leafGrad)" opacity="0.7"/>
+    <line x1="-8" y1="0" x2="8" y2="0" stroke="#1b5e20" stroke-width="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- ============ 水波纹 ============ -->
+  <!-- 山下水波纹 -->
+  <path d="M 55 110 Q 65 108 75 110 Q 85 112 95 110 Q 105 108 115 110 Q 125 112 135 110 Q 145 108 155 110"
+        fill="none" stroke="#2196f3" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+  <path d="M 60 115 Q 70 113 80 115 Q 90 117 100 115 Q 110 113 120 115 Q 130 117 140 115"
+        fill="none" stroke="#1565c0" stroke-width="1.2" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- ============ 底部弧形大地 ============ -->
+  <path d="M 25 130 Q 100 115 175 130 Q 180 135 180 140 L 20 140 Q 20 135 25 130 Z"
+        fill="#4caf50" opacity="0.3"/>
+
+  <!-- ============ 底部水纹 ============ -->
+  <path d="M 30 140 Q 50 136 70 140 Q 90 144 110 140 Q 130 136 150 140 Q 170 144 180 140"
+        fill="none" stroke="#2196f3" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+
+  <!-- ============ 内圈装饰光晕 ============ -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#4caf50" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- ============ 外圈文字弧 ============ -->
+  <!-- 外圈白色背景环 -->
+  <circle cx="100" cy="100" r="93" fill="none" stroke="#ffffff" stroke-width="10" opacity="0.95"/>
+
+  <!-- 外圈绿色环 -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#1a7a3a" stroke-width="1" opacity="0.3"/>
+
+  <!-- 上方文字：青海生态环境 -->
+  <path id="topArc" d="M 30 100 A 70 70 0 0 1 170 100" fill="none"/>
+  <text font-size="13.5" font-weight="bold" fill="#1a7a3a" font-family="'Microsoft YaHei','SimHei',sans-serif" letter-spacing="3">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">青海生态环境</textPath>
+  </text>
+
+  <!-- 下方文字：QINGHAI ECOLOGY -->
+  <path id="bottomArc" d="M 30 100 A 70 70 0 0 0 170 100" fill="none"/>
+  <text font-size="7" font-weight="bold" fill="#0d47a1" font-family="Arial,sans-serif" letter-spacing="1.5">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">QINGHAI ECOLOGY</textPath>
+  </text>
+
+</svg>
