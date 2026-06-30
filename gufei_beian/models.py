@@ -153,7 +153,7 @@ class SystemConfig(models.Model):
     )
 
     class Meta:
-        verbose_name = '系统配置'
+        verbose_name = '⚙️ 系统配置（AI预审开关）'
         verbose_name_plural = verbose_name
 
     def __str__(self):

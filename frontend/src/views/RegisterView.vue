@@ -120,9 +120,8 @@ async function handleRegister() {
     const res = await register({ ...form })
     localStorage.setItem('token', res.data.access)
     localStorage.setItem('user', JSON.stringify(res.data.user))
-    alert('注册成功！')
+    alert('注册成功！即将跳转到备案申请页面。')
     router.push('/apply')
-    window.location.reload()
   } catch (e) {
     // 错误已由拦截器处理
   } finally {

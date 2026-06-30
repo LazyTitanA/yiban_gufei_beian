@@ -70,7 +70,7 @@ class AIReviewInline(admin.StackedInline):
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ['application_no', 'applicant_name', 'transfer_unit', 'receive_unit',
-                    'waste_name', 'transfer_amount', 'status', 'ai_status', 'created_at', 'ai_review_btn']
+                    'waste_name', 'file_count', 'status', 'ai_status', 'created_at', 'ai_review_btn']
     list_filter = ['status', 'receive_province', 'created_at']
     search_fields = ['application_no', 'transfer_unit', 'receive_unit', 'waste_name']
     readonly_fields = ['application_no', 'created_at', 'updated_at', 'reviewed_by', 'reviewed_at', 'files_summary']
@@ -90,6 +90,14 @@ class ApplicationAdmin(admin.ModelAdmin):
     def applicant_name(self, obj):
         return obj.applicant.enterprise_name
     applicant_name.short_description = '申请企业'
+
+    def file_count(self, obj):
+        count = obj.files.count()
+        if count == 0:
+            return '无附件'
+        return f'{count} 个附件'
+    file_count.short_description = '附件'
+    file_count.admin_order_field = 'files__count'
 
     def ai_status(self, obj):
         if hasattr(obj, 'ai_review') and obj.ai_review:
