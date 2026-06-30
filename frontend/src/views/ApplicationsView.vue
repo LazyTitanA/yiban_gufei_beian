@@ -52,6 +52,44 @@
             </tbody>
           </table>
         </div>
+        <div class="app-list-mobile" v-if="applications.length > 0">
+          <div class="app-card" v-for="app in applications" :key="app.id">
+            <div class="app-card-header">
+              <div class="app-card-no">{{ app.application_no }}</div>
+              <div class="app-card-date">{{ app.created_at?.split('T')[0] }}</div>
+            </div>
+            <div class="app-card-body">
+              <div class="app-card-row">
+                <span class="app-card-label">转移单位</span>
+                <span class="app-card-value">{{ app.transfer_unit }}</span>
+              </div>
+              <div class="app-card-row">
+                <span class="app-card-label">接收单位</span>
+                <span class="app-card-value">{{ app.receive_unit }}</span>
+              </div>
+              <div class="app-card-row">
+                <span class="app-card-label">废物名称</span>
+                <span class="app-card-value">{{ app.waste_name }} ({{ app.transfer_amount }}吨)</span>
+              </div>
+              <div class="app-card-row">
+                <span class="app-card-label">当前状态</span>
+                <span class="app-card-value">
+                  <span class="status-tag" :class="'status-' + app.status">{{ statusMap[app.status] }}</span>
+                </span>
+              </div>
+            </div>
+            <div class="app-card-footer">
+              <div class="app-card-ai">
+                <span class="app-card-ai-label">AI预审：</span>
+                <span v-if="app.ai_review_status" class="status-tag" :class="'status-' + (app.ai_review_status === 'passed' ? 'approved' : app.ai_review_status === 'failed' ? 'rejected' : 'draft')">
+                  {{ aiStatusMap[app.ai_review_status] || '--' }}
+                </span>
+                <span v-else class="text-muted">--</span>
+              </div>
+              <router-link :to="'/application/' + app.id" class="btn btn-primary btn-sm">查看详情</router-link>
+            </div>
+          </div>
+        </div>
         <div v-else class="empty-state">
           <div class="empty-state-icon">📋</div>
           <div class="empty-state-title">暂无申请记录</div>
@@ -101,5 +139,96 @@ onMounted(async () => {
   font-size: 13px;
   color: var(--primary);
   font-weight: 500;
+}
+
+.app-list-mobile {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.app-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.app-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.app-card-no {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.app-card-date {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.app-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.app-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: 13px;
+}
+
+.app-card-label {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  width: 80px;
+}
+
+.app-card-value {
+  flex: 1;
+  color: var(--text);
+  text-align: right;
+  word-break: break-all;
+}
+
+.app-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--border-light);
+}
+
+.app-card-ai {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.app-card-ai-label {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .app-list-mobile {
+    display: flex;
+  }
 }
 </style>

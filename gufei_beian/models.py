@@ -140,3 +140,26 @@ class AIReview(models.Model):
 
     def __str__(self):
         return f'AI预审 - {self.application.application_no}'
+
+
+class SystemConfig(models.Model):
+    """系统配置（单例）"""
+    ai_auto_review_enabled = models.BooleanField(default=False, verbose_name='AI 自动预审开关')
+    ai_peak_hours = models.CharField(
+        max_length=200,
+        default='09:00-12:00,14:00-18:00',
+        verbose_name='高峰时段（避开不处理）',
+        help_text='格式：HH:MM-HH:MM,HH:MM-HH:MM，使用北京时间'
+    )
+
+    class Meta:
+        verbose_name = '系统配置'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '系统配置'
+
+    @classmethod
+    def get_config(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj

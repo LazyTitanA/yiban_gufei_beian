@@ -453,52 +453,160 @@ const materials = [
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 48px 0;
+    padding: 40px 0;
   }
 
   .hero-inner {
     flex-direction: column;
     text-align: center;
+    gap: var(--space-xl);
   }
 
   .hero-title {
-    font-size: 28px;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: var(--space-lg);
   }
 
   .hero-actions {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .hero-actions .btn {
+    width: 100%;
   }
 
   .hero-right {
     width: 100%;
+    gap: var(--space-lg);
   }
 
   .hero-stats {
     width: 100%;
     justify-content: center;
+    gap: var(--space-sm);
   }
 
   .stat-item {
     min-width: auto;
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    flex: 1;
   }
 
   .stat-number {
-    font-size: 24px;
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .hero-flow {
+    padding: var(--space-md);
+  }
+
+  .hero-flow-title {
+    font-size: 13px;
+    margin-bottom: var(--space-sm);
   }
 
   .hero-flow-steps {
     flex-wrap: wrap;
     justify-content: center;
+    gap: var(--space-xs);
+  }
+
+  .hero-flow-step {
+    flex: none;
+    width: 25%;
+  }
+
+  .hero-flow-step-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .hero-flow-step span {
+    font-size: 10px;
+    white-space: normal;
+    text-align: center;
   }
 
   .hero-flow-arrow {
     display: none;
   }
 
+  .section {
+    padding: var(--space-xl) 0;
+  }
+
   .info-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .card-header {
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .card-header h2 {
+    font-size: 16px;
+  }
+
+  .notice-item {
+    padding: 10px 0;
+    gap: var(--space-sm);
+  }
+
+  .notice-tag {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+
+  .notice-title {
+    font-size: 13px;
+  }
+
+  .notice-date {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 20px;
+  }
+
+  .hero-desc {
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .stat-number {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .hero-flow-step-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .hero-flow-step span {
+    font-size: 10px;
   }
 }
 </style>

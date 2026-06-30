@@ -94,8 +94,30 @@
 }
 
 @media (max-width: 768px) {
+  .footer-links {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+
   .footer-links-inner {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .footer-col h4 {
+    font-size: 14px;
+    margin-bottom: var(--space-md);
+  }
+
+  .footer-col a,
+  .footer-col p {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+    line-height: 1.8;
+    padding: var(--space-md) 0;
   }
 }
 </style>

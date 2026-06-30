@@ -121,7 +121,7 @@ async function handleRegister() {
     localStorage.setItem('token', res.data.access)
     localStorage.setItem('user', JSON.stringify(res.data.user))
     alert('注册成功！')
-    router.push('/')
+    router.push('/apply')
     window.location.reload()
   } catch (e) {
     // 错误已由拦截器处理

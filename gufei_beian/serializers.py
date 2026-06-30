@@ -120,12 +120,14 @@ class ApplicationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = [
+            'id',
             'transfer_unit', 'transfer_address', 'transfer_contact', 'transfer_phone',
             'receive_unit', 'receive_province', 'receive_address', 'receive_contact', 'receive_phone',
             'disposal_method', 'waste_name', 'waste_category', 'waste_code', 'transfer_amount',
             'waste_form', 'packaging', 'main_components', 'hazardous',
             'transport_unit', 'transport_method', 'transfer_start', 'transfer_end',
         ]
+        read_only_fields = ['id']
 
 
 # ==================== 审核（管理员用） ====================

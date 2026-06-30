@@ -24,11 +24,24 @@
             <div class="logo-subtitle">跨省转移备案系统</div>
           </div>
         </router-link>
-        <nav class="header-nav">
-          <router-link to="/" class="nav-item" active-class="nav-active">首页</router-link>
-          <router-link to="/apply" class="nav-item" active-class="nav-active">在线申请</router-link>
-          <router-link to="/applications" class="nav-item" active-class="nav-active">我的申请</router-link>
-          <router-link to="/guide" class="nav-item" active-class="nav-active">办事指南</router-link>
+        <button class="menu-toggle" @click="menuOpen = !menuOpen" :aria-label="menuOpen ? '关闭菜单' : '打开菜单'">
+          <span :class="{ 'open': menuOpen }"></span>
+        </button>
+        <nav class="header-nav" :class="{ 'nav-open': menuOpen }">
+          <router-link to="/" class="nav-item" active-class="nav-active" @click="menuOpen = false">首页</router-link>
+          <router-link to="/apply" class="nav-item" active-class="nav-active" @click="menuOpen = false">在线申请</router-link>
+          <router-link to="/applications" class="nav-item" active-class="nav-active" @click="menuOpen = false">我的申请</router-link>
+          <router-link to="/guide" class="nav-item" active-class="nav-active" @click="menuOpen = false">办事指南</router-link>
+          <div class="nav-user-mobile">
+            <template v-if="user">
+              <div class="nav-user-name">{{ user.enterprise_name || user.username }}</div>
+              <a href="#" class="nav-logout" @click.prevent="logout; menuOpen = false">退出登录</a>
+            </template>
+            <template v-else>
+              <router-link to="/login" class="nav-login-btn" @click="menuOpen = false">企业登录</router-link>
+              <router-link to="/register" class="nav-register-btn" @click="menuOpen = false">企业注册</router-link>
+            </template>
+          </div>
         </nav>
       </div>
     </div>
@@ -42,13 +55,13 @@ import { getMe } from '../api'
 
 const router = useRouter()
 const user = ref(null)
+const menuOpen = ref(false)
 
 onMounted(async () => {
   const stored = localStorage.getItem('user')
   if (stored) {
     try { user.value = JSON.parse(stored) } catch (e) { /* ignore */ }
   }
-  // 尝试从后端获取最新用户信息
   if (localStorage.getItem('token')) {
     try {
       const res = await getMe()
@@ -185,25 +198,200 @@ function logout() {
 }
 
 @media (max-width: 768px) {
+  .header-top {
+    font-size: 11px;
+    padding: 4px 0;
+  }
+
   .header-top-inner {
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
     text-align: center;
   }
 
-  .header-main-inner {
-    flex-direction: column;
+  .header-welcome {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .header-links {
     gap: 12px;
+    font-size: 12px;
+  }
+
+  .header-main-inner {
+    position: relative;
+    padding: 12px 0;
+  }
+
+  .header-logo {
+    gap: 10px;
+  }
+
+  .logo-emblem {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-title {
+    font-size: 15px;
+  }
+
+  .logo-subtitle {
+    font-size: 11px;
+  }
+
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 200;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--primary);
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .menu-toggle span::before,
+  .menu-toggle span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s;
+  }
+
+  .menu-toggle span::before {
+    top: -7px;
+  }
+
+  .menu-toggle span::after {
+    top: 7px;
+  }
+
+  .menu-toggle span.open {
+    background: transparent;
+  }
+
+  .menu-toggle span.open::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .menu-toggle span.open::after {
+    top: 0;
+    transform: rotate(-45deg);
   }
 
   .header-nav {
-    flex-wrap: wrap;
-    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 280px;
+    height: 100vh;
+    background: #FFFFFF;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 70px 0 var(--space-lg);
+    box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 150;
+    overflow-y: auto;
+  }
+
+  .header-nav.nav-open {
+    right: 0;
   }
 
   .nav-item {
-    padding: 6px 14px;
+    padding: 16px var(--space-lg);
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 15px;
+  }
+
+  .nav-item:first-child {
+    border-top: 1px solid var(--border-light);
+  }
+
+  .nav-active {
+    background: var(--primary-bg);
+    color: var(--primary);
+  }
+
+  .nav-user-mobile {
+    padding: var(--space-lg);
+    margin-top: var(--space-md);
+    border-top: 8px solid var(--bg-gray);
+  }
+
+  .nav-user-name {
     font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .nav-logout {
+    display: block;
+    color: var(--accent);
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  .nav-login-btn,
+  .nav-register-btn {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    border-radius: var(--radius);
+    margin-bottom: var(--space-sm);
+    font-size: 14px;
+  }
+
+  .nav-login-btn {
+    background: var(--primary);
+    color: #FFFFFF;
+  }
+
+  .nav-register-btn {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+  }
+
+  .header-links {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 1px) {
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-user-mobile {
+    display: none;
   }
 }
 </style>
