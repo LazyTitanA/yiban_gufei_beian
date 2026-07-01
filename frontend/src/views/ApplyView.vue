@@ -342,18 +342,18 @@ async function nextStep() {
         return
       }
     }
-    // 先创建草稿
     if (!applicationId.value) {
       try {
         const res = await createApplication({ ...form })
         applicationId.value = res.data.id
+        alert('申请草稿已保存！')
       } catch (e) {
+        alert('保存失败，请重试')
         return
       }
     }
   }
   if (currentStep.value === 2) {
-    // 上传文件
     uploading.value = true
     try {
       for (const item of uploadItems) {
@@ -361,8 +361,10 @@ async function nextStep() {
           await uploadFile(applicationId.value, item.key, files[item.key])
         }
       }
+      alert('文件上传成功！')
     } catch (e) {
       uploading.value = false
+      alert('文件上传失败，请重试')
       return
     }
     uploading.value = false

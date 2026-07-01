@@ -8,6 +8,4 @@ urlpatterns = [
     path('api/', include('gufei_beian.urls')),
 ]
 
-# 开发环境提供媒体文件服务
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
