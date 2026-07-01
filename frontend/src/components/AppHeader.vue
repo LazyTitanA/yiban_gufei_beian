@@ -6,6 +6,7 @@
         <div class="header-links">
           <template v-if="user">
             <span class="header-user">{{ user.enterprise_name || user.username }}</span>
+            <router-link v-if="user.is_staff" to="/review" class="header-admin-link">审核管理</router-link>
             <a href="#" @click.prevent="logout">退出登录</a>
           </template>
           <template v-else>
@@ -65,13 +66,12 @@ onMounted(async () => {
   if (localStorage.getItem('token')) {
     try {
       const res = await getMe()
-      if (res.data.enterprise) {
-        user.value = {
-          enterprise_name: res.data.enterprise.enterprise_name,
-          username: res.data.username,
-        }
-        localStorage.setItem('user', JSON.stringify(user.value))
+      user.value = {
+        enterprise_name: res.data.enterprise?.enterprise_name || '',
+        username: res.data.username,
+        is_staff: res.data.is_staff || false,
       }
+      localStorage.setItem('user', JSON.stringify(user.value))
     } catch (e) { /* token 过期 */ }
   }
 })
@@ -124,6 +124,18 @@ function logout() {
 
 .header-user {
   color: rgba(255,255,255,0.7);
+}
+
+.header-admin-link {
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.header-admin-link:hover {
+  background: rgba(255,255,255,0.3);
 }
 
 /* 主导航 */
