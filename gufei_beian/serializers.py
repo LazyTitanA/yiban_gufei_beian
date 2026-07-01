@@ -89,11 +89,12 @@ class ApplicationListSerializer(serializers.ModelSerializer):
     """申请列表（简要信息）"""
     applicant_name = serializers.CharField(source='applicant.enterprise_name', read_only=True)
     ai_review_status = serializers.SerializerMethodField()
+    file_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Application
         fields = ['id', 'application_no', 'applicant_name', 'transfer_unit', 'receive_unit',
-                  'waste_name', 'transfer_amount', 'status', 'ai_review_status', 'created_at']
+                  'waste_name', 'transfer_amount', 'status', 'ai_review_status', 'file_count', 'created_at']
 
     def get_ai_review_status(self, obj):
         if hasattr(obj, 'ai_review'):

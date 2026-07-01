@@ -8,6 +8,7 @@ const routes = [
   { path: '/apply', name: 'Apply', component: () => import('../views/ApplyView.vue'), meta: { title: '在线申请', requiresAuth: true } },
   { path: '/applications', name: 'Applications', component: () => import('../views/ApplicationsView.vue'), meta: { title: '我的申请', requiresAuth: true } },
   { path: '/application/:id', name: 'ApplicationDetail', component: () => import('../views/ApplicationDetailView.vue'), meta: { title: '申请详情', requiresAuth: true } },
+  { path: '/review', name: 'Review', component: () => import('../views/ReviewView.vue'), meta: { title: '人工审核', requiresAuth: true } },
   { path: '/guide', name: 'Guide', component: () => import('../views/GuideView.vue'), meta: { title: '办事指南' } },
 ]
 

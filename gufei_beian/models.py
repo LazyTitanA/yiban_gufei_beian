@@ -91,6 +91,10 @@ class Application(models.Model):
     def __str__(self):
         return f'{self.application_no} - {self.transfer_unit}'
 
+    @property
+    def file_count(self):
+        return self.files.count()
+
 
 class ApplicationFile(models.Model):
     """申请附件"""
