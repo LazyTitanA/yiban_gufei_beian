@@ -29,6 +29,16 @@ router.beforeEach((to, from, next) => {
       return
     }
   }
+  if (to.path === '/review') {
+    const userStr = localStorage.getItem('user')
+    let user = null
+    try { user = JSON.parse(userStr) } catch (e) { /* ignore */ }
+    if (!user || !user.is_staff) {
+      alert('您没有权限访问此页面')
+      next('/')
+      return
+    }
+  }
   next()
 })
 

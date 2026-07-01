@@ -42,7 +42,7 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
-    """企业登录"""
+    """用户登录（支持企业用户和管理员）"""
     serializer = LoginSerializer(data=request.data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -51,18 +51,19 @@ def login(request):
                         password=serializer.validated_data['password'])
     if user is None:
         return Response({'error': '用户名或密码错误'}, status=status.HTTP_401_UNAUTHORIZED)
-    if not hasattr(user, 'enterprise'):
-        return Response({'error': '该账号不是企业账号'}, status=status.HTTP_403_FORBIDDEN)
     refresh = RefreshToken.for_user(user)
+    user_data = {
+        'id': user.id,
+        'username': user.username,
+        'is_staff': user.is_staff,
+    }
+    if hasattr(user, 'enterprise'):
+        user_data['enterprise_name'] = user.enterprise.enterprise_name
+        user_data['credit_code'] = user.enterprise.credit_code
     return Response({
         'access': str(refresh.access_token),
         'refresh': str(refresh),
-        'user': {
-            'id': user.id,
-            'username': user.username,
-            'enterprise_name': user.enterprise.enterprise_name,
-            'credit_code': user.enterprise.credit_code,
-        }
+        'user': user_data,
     })
 
 
