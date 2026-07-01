@@ -70,7 +70,6 @@ async function handleLogin() {
     localStorage.setItem('token', res.data.access)
     localStorage.setItem('user', JSON.stringify(res.data.user))
     router.push('/')
-    window.location.reload()
   } catch (e) {
     // 错误已由拦截器处理
   } finally {
