@@ -69,7 +69,11 @@ async function handleLogin() {
     const res = await login({ ...form })
     localStorage.setItem('token', res.data.access)
     localStorage.setItem('user', JSON.stringify(res.data.user))
-    router.push('/')
+    if (res.data.user.is_staff) {
+      router.push('/review')
+    } else {
+      router.push('/apply')
+    }
   } catch (e) {
     // 错误已由拦截器处理
   } finally {
